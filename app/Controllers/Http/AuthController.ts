@@ -3,6 +3,7 @@ import User from 'App/Models/User'
 
 export default class AuthController {
     public async register({ request }: HttpContextContract) {
+        
         const data = request.only(["email", "password"])
         const user = await User.create(data)
         return user
