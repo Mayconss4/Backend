@@ -20,13 +20,14 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
-Route.get('/', async () => {
-  return { hello: 'Lazin' }
-})
+//Route.get('/', async () => {
+// return { hello: 'Lazin' }
+//})
 
 Route.post("/register", "AuthController.register")
 Route.post("/login", "AuthController.login")
-//Route.get("/comentarios","ComentariosController.index")
+Route.get("/comentarios","ComentariosController.index")
+Route.get("/comentarios/:id","ComentariosController.show")
 Route.group(() => {
-  Route.resource("comentarios", 'ComentariosController').apiOnly()
+  Route.resource("comentarios", 'ComentariosController').apiOnly().except(['index','show'])
 }).middleware('auth')

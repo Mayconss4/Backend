@@ -14,4 +14,36 @@ public async store({ request, auth }: HttpContextContract) {
   return comentarioDB
 }
 
+public async show({ params, response }: HttpContextContract) {
+  try {
+    const comentarioDB = await Comentario.findOrFail(params.id)
+    return comentarioDB
+  } catch (error) {
+    response.status(400).send("Comentario não encontrado!")
+  }
+}
+
+public async update({ request, params, response }: HttpContextContract) {
+  const { comentario } = await request.validate(StoreComentarioValidator)
+  try {
+    const comentarioDB = await Comentario.findOrFail(params.id)
+    comentarioDB.comentario = comentario
+    await comentarioDB.save()
+    return comentarioDB
+
+  } catch (error) {
+    response.status(400).send("Comentario não encontrado!")
+  }
+}
+
+public async destroy({ params, response }: HttpContextContract) {
+  try {
+    const comentarioDB = await Comentario.findOrFail(params.id)
+    await comentarioDB.delete()
+    return comentarioDB
+  } catch (error) {
+    response.status(400).send("Comentario não encontrado!")
+  }
+}
+
 }
