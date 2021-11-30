@@ -29,5 +29,5 @@ Route.post("/login", "AuthController.login")
 Route.get("/comentarios","ComentariosController.index")
 Route.get("/comentarios/:id","ComentariosController.show")
 Route.group(() => {
-  Route.resource("comentarios", 'ComentariosController').apiOnly().except(['index','show'])
+Route.resource("comentarios", 'ComentariosController').apiOnly().except(['index','show'])
 }).middleware('auth')
